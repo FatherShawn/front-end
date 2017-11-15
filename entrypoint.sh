@@ -2,21 +2,12 @@
 
 # If theme name is set and a package.json is present,
 # build the node modules.
-if [ -n ${THEME_NAME} -a -r /var/www/docroot/themes/custom/${THEME_NAME}/package.json ]; then
+if [ -r /var/www/web/assets/package.json ]; then
     touch BUILDING.txt
     npm install
-fi
-# compile the theme.
-if [ -n ${THEME_NAME} -a -r /var/www/docroot/themes/custom/${THEME_NAME}/gulpfile.js ]; then
-    touch COMPILING.txt
-    node_modules/.bin/gulp build
-    touch INITIALIZED.txt
-elif [ -n ${THEME_NAME} -a -r /var/www/docroot/themes/custom/${THEME_NAME}/Gruntfile.js ]; then
-    touch COMPILING.txt
-    export GRUNT_TARGET=dist
-    node_modules/.bin/grunt build
     touch INITIALIZED.txt
 fi
+
 # Keep the container present if not in a CI, otherwise exit.
 if [ -z ${CI_BUILD_ID} ]; then
   tail -f /dev/null
