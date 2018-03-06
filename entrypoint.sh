@@ -2,7 +2,7 @@
 
 # If theme name is set and a package.json is present,
 # build the node modules.
-if [ -r /var/www/web/assets/package.json ]; then
+if [ -r /var/www/package.json ]; then
     touch BUILDING.txt
     npm install
     touch INITIALIZED.txt
